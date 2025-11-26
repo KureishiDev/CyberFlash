@@ -261,9 +261,7 @@ footer {
 
 .vespas-link:hover .vespas-logo-inline {
     transform: scale(1.1); /* Efeito de zoom ao passar mouse */
-
 }
-
 /* --- ESTILOS DO PERFIL (SOBRE) --- */
 
 .profile-card {
@@ -331,4 +329,26 @@ footer {
     color: black;
     font-weight: bold;
     cursor: default;
+}
+
+/* Botão do LinkedIn no Sobre */
+.social-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--accent); /* Verde Neon */
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.social-btn:hover {
+    background-color: var(--accent);
+    color: #000; /* Texto preto no hover */
+    box-shadow: 0 0 15px var(--accent);
 }
