@@ -1,3 +1,4 @@
+// --- DADOS (LISTA COMPLETA E CATEGORIZADA) ---
 const data = [
     // --- REDES E PROTOCOLOS ---
     { term: "TCP", def: "Transmission Control Protocol. Garante entrega confiável e ordenada." },
@@ -144,3 +145,109 @@ const data = [
     { term: "IoT", def: "Internet of Things. Dispositivos conectados." },
     { term: "BYOD", def: "Bring Your Own Device. Uso de dispositivos pessoais no trabalho." }
 ];
+
+// --- VARIÁVEIS DE CONTROLE ---
+let currentIndex = 0;
+let isFlipped = false;
+
+// --- FUNÇÕES GLOBAIS ---
+
+// 1. Carrega o Card Inicial
+function loadCard() {
+    const termElement = document.getElementById('card-term');
+    const defElement = document.getElementById('card-def');
+    const cardElement = document.getElementById('flashcard');
+
+    // Segurança: se os elementos não existem, para a execução
+    if (!termElement || !defElement) return;
+
+    // Se a carta estiver virada, desvira antes de trocar o conteúdo
+    if (isFlipped) {
+        cardElement.classList.remove('flipped');
+        isFlipped = false;
+        // Espera a animação para trocar o texto (300ms)
+        setTimeout(updateText, 300);
+    } else {
+        updateText();
+    }
+}
+
+// 2. Atualiza o Texto do Card
+function updateText() {
+    const termElement = document.getElementById('card-term');
+    const defElement = document.getElementById('card-def');
+    const counterElement = document.getElementById('counter');
+
+    if (data.length > 0) {
+        termElement.textContent = data[currentIndex].term;
+        defElement.textContent = data[currentIndex].def;
+        counterElement.textContent = `${currentIndex + 1} / ${data.length}`;
+    }
+}
+
+// 3. Vira o Card
+function flipCard() {
+    const cardElement = document.getElementById('flashcard');
+    cardElement.classList.toggle('flipped');
+    isFlipped = !isFlipped;
+}
+
+// 4. Próximo Card
+function nextCard() {
+    if (currentIndex < data.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0; // Volta ao início
+    }
+    loadCard();
+}
+
+// 5. Card Anterior
+function prevCard() {
+    if (currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = data.length - 1; // Vai para o final
+    }
+    loadCard();
+}
+
+// 6. Embaralhar
+function shuffleCards() {
+    for (let i = data.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [data[i], data[j]] = [data[j], data[i]];
+    }
+    currentIndex = 0;
+    loadCard();
+}
+
+// 7. Navegação (Navbar)
+function showSection(sectionId) {
+    // Esconde todas as seções
+    document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.add('hidden'); 
+    });
+    
+    // Remove a classe 'active-btn' de todos os botões
+    document.querySelectorAll('.menu button').forEach(btn => {
+        btn.classList.remove('active-btn');
+    });
+    
+    // Mostra a seção desejada
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+    }
+
+    // Ativa o botão correspondente
+    const activeBtn = document.getElementById('btn-' + sectionId);
+    if (activeBtn) {
+        activeBtn.classList.add('active-btn');
+    }
+}
+
+// --- INICIALIZAÇÃO ---
+document.addEventListener('DOMContentLoaded', () => {
+    loadCard();
+});
