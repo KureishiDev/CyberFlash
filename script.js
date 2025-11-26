@@ -1,0 +1,235 @@
+// --- DADOS (LISTA COMPLETA DE SIGLAS) ---
+const data = [
+    { term: "TCP", def: "Transmission Control Protocol. Garante entrega confiável e ordenada de pacotes." },
+    { term: "UDP", def: "User Datagram Protocol. Rápido, sem conexão e sem garantia de entrega." },
+    { term: "IP", def: "Internet Protocol. Endereçamento e roteamento de pacotes." },
+    { term: "IPv4", def: "Endereço IP de 32 bits (ex: 192.168.1.1)." },
+    { term: "IPv6", def: "Endereço IP de 128 bits (hexadecimal)." },
+    { term: "HTTP", def: "Hypertext Transfer Protocol. Comunicação web padrão (texto claro)." },
+    { term: "HTTPS", def: "HTTP Secure. HTTP criptografado via TLS/SSL." },
+    { term: "ICMP", def: "Internet Control Message Protocol. Diagnóstico e erro (ex: Ping)." },
+    { term: "ARP", def: "Address Resolution Protocol. Resolve IP para endereço MAC." },
+    { term: "DNS", def: "Domain Name System. Traduz nomes (domínios) para IPs." },
+    { term: "DHCP", def: "Dynamic Host Configuration Protocol. Atribui IPs automaticamente." },
+    { term: "FTP", def: "File Transfer Protocol. Transferência de arquivos (não seguro)." },
+    { term: "SFTP", def: "SSH File Transfer Protocol. Transferência segura via SSH." },
+    { term: "SSH", def: "Secure Shell. Acesso remoto seguro via linha de comando." },
+    { term: "RDP", def: "Remote Desktop Protocol. Acesso remoto gráfico (Microsoft)." },
+    { term: "SMTP", def: "Simple Mail Transfer Protocol. Protocolo para ENVIO de e-mails." },
+    { term: "POP3", def: "Post Office Protocol 3. RECEBE e-mails e baixa para o dispositivo." },
+    { term: "IMAP", def: "Internet Message Access Protocol. ACESSA e-mails no servidor." },
+    { term: "SNMP", def: "Simple Network Management Protocol. Gerenciamento de dispositivos." },
+    { term: "TLS", def: "Transport Layer Security. Criptografia web moderna." },
+    { term: "SSL", def: "Secure Sockets Layer. Antecessor do TLS (depreciado)." },
+    { term: "OSI", def: "Open Systems Interconnection. Modelo de 7 camadas para redes." },
+    { term: "MAC", def: "Media Access Control. Endereço físico da placa de rede." },
+    { term: "NAT", def: "Network Address Translation. Mapeia IPs privados em IP público." },
+    { term: "VLAN", def: "Virtual LAN. Segmentação lógica de rede." },
+    { term: "FW", def: "Firewall. Filtra tráfego baseado em regras." },
+    { term: "NGFW", def: "Next-Gen Firewall. Firewall com inspeção de app e IPS." },
+    { term: "IDS", def: "Intrusion Detection System. Alerta sobre atividades suspeitas." },
+    { term: "IPS", def: "Intrusion Prevention System. Bloqueia atividades maliciosas." },
+    { term: "WAF", def: "Web Application Firewall. Protege apps web (SQLi, XSS)." },
+    { term: "SIEM", def: "Security Info & Event Management. Coleta/correlaciona logs." },
+    { term: "SOAR", def: "Security Orchestration, Automation Response. Resposta automática." },
+    { term: "EDR", def: "Endpoint Detection and Response. Monitoramento de hosts." },
+    { term: "XDR", def: "Extended Detection and Response. EDR + Rede + Cloud." },
+    { term: "DLP", def: "Data Loss Prevention. Previne vazamento de dados." },
+    { term: "VPN", def: "Virtual Private Network. Túnel criptografado." },
+    { term: "DMZ", def: "Demilitarized Zone. Sub-rede exposta, isolada da interna." },
+    { term: "NAC", def: "Network Access Control. Controla acesso à rede." },
+    { term: "UTM", def: "Unified Threat Management. Dispositivo 'tudo-em-um'." },
+    { term: "CASB", def: "Cloud Access Security Broker. Segurança Usuário-Nuvem." },
+    { term: "SASE", def: "Secure Access Service Edge. WAN + Segurança na nuvem." },
+    { term: "ZTNA", def: "Zero Trust Network Access. Nada é confiável por padrão." },
+    { term: "SOC", def: "Security Operations Center. Central de monitoramento." },
+    { term: "DoS", def: "Denial of Service. Indisponibilizar serviço." },
+    { term: "DDoS", def: "Distributed DoS. Ataque vindo de várias origens." },
+    { term: "MiTM", def: "Man-in-the-Middle. Interceptação de comunicação." },
+    { term: "XSS", def: "Cross-Site Scripting. Injeção de scripts em páginas." },
+    { term: "CSRF", def: "Cross-Site Request Forgery. Força ação indesejada." },
+    { term: "SQLi", def: "SQL Injection. Manipulação de BD via web." },
+    { term: "RCE", def: "Remote Code Execution. Comandos remotos no alvo." },
+    { term: "APT", def: "Advanced Persistent Threat. Invasor persistente/sofisticado." },
+    { term: "RAT", def: "Remote Access Trojan. Malware de controle remoto." },
+    { term: "C2", def: "Command and Control. Servidor que controla bots." },
+    { term: "LFI", def: "Local File Inclusion. Ler arquivos locais via falha." },
+    { term: "BEC", def: "Business Email Compromise. Fraude via e-mail corporativo." },
+    { term: "Zero-Day", def: "Vulnerabilidade sem correção disponível." },
+    { term: "PoC", def: "Proof of Concept. Prova de que falha é explorável." },
+    { term: "CIA", def: "Confidentiality, Integrity, Availability. Tríade." },
+    { term: "AAA", def: "Authentication, Authorization, Accounting." },
+    { term: "IAM", def: "Identity and Access Management." },
+    { term: "PAM", def: "Privileged Access Management. Contas de admin." },
+    { term: "MFA", def: "Multi-Factor Authentication. 2+ fatores." },
+    { term: "2FA", def: "Two-Factor Authentication. 2 fatores exatos." },
+    { term: "SSO", def: "Single Sign-On. Login único." },
+    { term: "RBAC", def: "Role-Based Access Control. Acesso por cargo." },
+    { term: "ABAC", def: "Attribute-Based Access Control. Acesso por atributos." },
+    { term: "PKI", def: "Public Key Infrastructure. Certificados digitais." },
+    { term: "CA", def: "Certificate Authority. Emite certificados." },
+    { term: "AES", def: "Advanced Encryption Standard. Criptografia simétrica." },
+    { term: "RSA", def: "Algoritmo assimétrico (chaves pública/privada)." },
+    { term: "SHA", def: "Secure Hash Algorithm. Hash criptográfico." },
+    { term: "HMAC", def: "Hash-based Message Auth Code. Autenticidade + Integridade." },
+    { term: "PGP", def: "Pretty Good Privacy. Criptografia de e-mail/arquivos." },
+    { term: "GDPR", def: "General Data Protection Regulation (UE)." },
+    { term: "LGPD", def: "Lei Geral de Proteção de Dados (BR)." },
+    { term: "ISO", def: "International Organization for Standardization." },
+    { term: "NIST", def: "National Institute of Standards and Technology (EUA)." },
+    { term: "PCI-DSS", def: "Padrão de segurança para cartões." },
+    { term: "HIPAA", def: "Lei de proteção de dados de saúde (EUA)." },
+    { term: "CVE", def: "Common Vulnerabilities and Exposures. Lista de falhas." },
+    { term: "CVSS", def: "Common Vulnerability Scoring System. Pontuação de risco." },
+    { term: "RPO", def: "Recovery Point Objective. Perda de dados aceitável." },
+    { term: "RTO", def: "Recovery Time Objective. Tempo de recuperação." },
+    { term: "BCP", def: "Business Continuity Plan. Continuidade do negócio." },
+    { term: "DRP", def: "Disaster Recovery Plan. Recuperação de TI." },
+    { term: "SLA", def: "Service Level Agreement. Acordo de nível de serviço." },
+    { term: "NDA", def: "Non-Disclosure Agreement. Acordo de sigilo." },
+    { term: "CISO", def: "Chief Information Security Officer." },
+    { term: "DPO", def: "Data Protection Officer. Encarregado LGPD." },
+    { term: "CSIRT", def: "Computer Security Incident Response Team." },
+    { term: "SDLC", def: "Systems Development Life Cycle." },
+    { term: "CI/CD", def: "Continuous Integration / Continuous Delivery." },
+    { term: "SAST", def: "Static App Security Testing. Análise de código." },
+    { term: "DAST", def: "Dynamic App Security Testing. Teste em execução." },
+    { term: "SCA", def: "Software Composition Analysis. Libs open-source." },
+    { term: "API", def: "Application Programming Interface." },
+    { term: "REST", def: "Representational State Transfer. Arq. de API." },
+    { term: "JSON", def: "JavaScript Object Notation. Formato de dados." },
+    { term: "OWASP", def: "Open Web Application Security Project." },
+    { term: "IaC", def: "Infrastructure as Code." },
+    { term: "SaaS", def: "Software as a Service." },
+    { term: "PaaS", def: "Platform as a Service." },
+    { term: "IaaS", def: "Infrastructure as a Service." },
+    { term: "IoT", def: "Internet of Things." },
+    { term: "SCADA", def: "Sistemas de controle industrial." },
+    { term: "BYOD", def: "Bring Your Own Device." }
+];
+
+// --- VARIÁVEIS DE CONTROLE ---
+let currentIndex = 0;
+let isFlipped = false;
+
+// --- FUNÇÕES GLOBAIS (Necessárias para o onclick do HTML funcionar) ---
+
+// 1. Carrega o Card Inicial
+function loadCard() {
+    const termElement = document.getElementById('card-term');
+    const defElement = document.getElementById('card-def');
+    const counterElement = document.getElementById('counter');
+    const cardElement = document.getElementById('flashcard');
+
+    // Segurança: se os elementos não existem, para a execução
+    if (!termElement || !defElement) return;
+
+    // Reseta o flip se estiver virado
+    if (isFlipped) {
+        cardElement.classList.remove('flipped');
+        isFlipped = false;
+        // Espera a animação para trocar o texto
+        setTimeout(updateText, 300);
+    } else {
+        updateText();
+    }
+}
+
+// 2. Atualiza o Texto do Card
+function updateText() {
+    const termElement = document.getElementById('card-term');
+    const defElement = document.getElementById('card-def');
+    const counterElement = document.getElementById('counter');
+
+    if (data.length > 0) {
+        termElement.textContent = data[currentIndex].term;
+        defElement.textContent = data[currentIndex].def;
+        counterElement.textContent = `${currentIndex + 1} / ${data.length}`;
+    }
+}
+
+// 3. Vira o Card
+function flipCard() {
+    const cardElement = document.getElementById('flashcard');
+    cardElement.classList.toggle('flipped');
+    isFlipped = !isFlipped;
+}
+
+// 4. Próximo Card
+function nextCard() {
+    if (currentIndex < data.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0;
+    }
+    loadCard();
+}
+
+// 5. Card Anterior
+function prevCard() {
+    if (currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = data.length - 1;
+    }
+    loadCard();
+}
+
+// 6. Embaralhar
+function shuffleCards() {
+    for (let i = data.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [data[i], data[j]] = [data[j], data[i]];
+    }
+    currentIndex = 0;
+    loadCard();
+}
+
+// 7. Navegação (Navbar) - AQUI ESTAVA O PROBLEMA DO MENU
+function showSection(sectionId) {
+    // Esconde todas as seções
+    document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.add('hidden'); 
+    });
+    
+    // Remove a classe 'active-btn' de todos os botões
+    document.querySelectorAll('.menu button').forEach(btn => {
+        btn.classList.remove('active-btn');
+    });
+    
+    // Mostra a seção desejada
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+    } else {
+        console.error("Seção não encontrada: " + sectionId);
+    }
+
+    // Ativa o botão correspondente
+    const activeBtn = document.getElementById('btn-' + sectionId);
+    if (activeBtn) {
+        activeBtn.classList.add('active-btn');
+    }
+}
+
+// 8. Feedback (Simulação)
+function sendFeedback(event) {
+    event.preventDefault();
+    const msg = document.getElementById('msg-success');
+    if(msg) {
+        msg.style.display = 'block';
+        msg.textContent = "Enviando...";
+        
+        setTimeout(() => {
+            msg.textContent = "Feedback registrado localmente!";
+            document.getElementById('feedbackForm').reset();
+        }, 1500);
+    }
+}
+
+// --- INICIALIZAÇÃO ---
+// Garante que o código só rode quando a página estiver 100% carregada
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("CyberFlash Iniciado!"); // Confirmação no Console (F12)
+    loadCard();
+});

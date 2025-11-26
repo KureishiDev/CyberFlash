@@ -1,0 +1,264 @@
+:root {
+    --bg-color: #0d1117;
+    --card-bg: #161b22;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --accent: #00ff41; /* Verde Hacker */
+    --accent-hover: #00b32d;
+    --border: #30363d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- NAVBAR RESPONSIVA --- */
+.navbar {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column; /* Mobile: Empilhado */
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Tablet e Desktop: Lado a lado */
+@media (min-width: 600px) {
+    .nav-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.logo { 
+    font-family: 'JetBrains Mono', monospace; 
+    font-weight: 700; 
+    color: var(--accent); 
+    font-size: 1.4rem; 
+    letter-spacing: -1px;
+}
+
+.menu {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Permite quebrar linha em telas muito pequenas */
+    justify-content: center;
+}
+
+.menu button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+.menu button:hover, .menu button.active-btn { color: var(--accent); }
+
+/* --- CONTEÚDO PRINCIPAL --- */
+main { 
+    flex: 1; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px; 
+    width: 100%;
+}
+
+.section { width: 100%; max-width: 600px; text-align: center; }
+.hidden { display: none; }
+
+/* --- FLASHCARD 3D --- */
+.flashcard-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 300px; /* Altura fixa */
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+    border-radius: 10px;
+    background-color: var(--card-bg);
+}
+
+.card.flipped { transform: rotateY(180deg); }
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Tipografia responsiva no card */
+.card-front h2 { 
+    font-size: 2.5rem; 
+    font-family: 'JetBrains Mono', monospace; 
+    color: var(--accent);
+    word-break: break-all; /* Evita que siglas gigantes quebrem o layout */
+}
+
+@media (min-width: 600px) {
+    .card-front h2 { font-size: 3rem; }
+}
+
+.card-back { transform: rotateY(180deg); background-color: #1f262e; border-radius: 10px; }
+.card-back p { font-size: 1.1rem; line-height: 1.5; }
+.hint { font-size: 0.8rem; opacity: 0.5; margin-top: 15px; color: var(--text-secondary); }
+
+/* --- BOTÕES E CONTROLES --- */
+.controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
+.ctrl-btn, .action-btn, .shuffle-btn {
+    padding: 10px 15px;
+    background-color: var(--border);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: bold;
+    flex: 1; /* Faz botões ocuparem espaço igual no mobile */
+}
+.shuffle-btn { width: 100%; }
+.ctrl-btn:hover, .shuffle-btn:hover { background-color: var(--accent); color: black; }
+.action-btn { background-color: var(--accent); color: black; margin-top: 10px;}
+
+/* --- SOBRE & FEEDBACK --- */
+.content-box {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+@media (min-width: 600px) {
+    .content-box { padding: 30px; }
+}
+
+.content-box h1 { color: var(--accent); margin-bottom: 15px; }
+.input-field {
+    width: 100%; padding: 10px; margin: 5px 0 15px;
+    background: var(--bg-color); border: 1px solid var(--border);
+    color: white; border-radius: 5px;
+    resize: vertical; /* Permite redimensionar textarea verticalmente */
+}
+.tech-list { list-style: inside square; padding-left: 10px; color: var(--text-secondary); }
+
+/* --- FOOTER (CORREÇÃO DE ALINHAMENTO) --- */
+footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border);
+    padding: 20px 10px; /* Padding menor nas laterais para mobile */
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: auto; /* Garante que o footer fique embaixo mesmo com pouco conteúdo */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column; /* Mobile: Um item embaixo do outro */
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Desktop: Linha única centralizada */
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        gap: 20px;
+    }
+}
+
+.footer-content p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Se o nome for muito longo no mobile, quebra linha */
+    gap: 5px;
+}
+
+.author {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.author:hover { text-decoration: underline; }
+
+/* Separadores visuais (//) */
+.separator {
+    color: var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    display: none; /* Esconde barra vertical no mobile */
+}
+
+.separator-inline {
+    color: var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0 5px;
+}
+
+@media (min-width: 768px) {
+    .separator { display: inline; }
+}
+
+/* Logos */
+.cc-logo {
+    height: 31px;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+.cc-logo:hover { opacity: 1; }
+
+.vespas-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.vespas-logo-inline {
+    height: 50px;
+    margin-left: 5px;
+    vertical-align: middle;
+    transition: transform 0.2s;
+}
+
+.vespas-link:hover .vespas-logo-inline {
+    transform: scale(1.1); /* Efeito de zoom ao passar mouse */
+}

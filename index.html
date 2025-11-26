@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberFlash - Flashcards de Cibersegurança</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CyberFlash_</div>
+            <div class="menu">
+                <button onclick="showSection('home')" class="active-btn" id="btn-home">Treino</button>
+                <button onclick="showSection('about')" id="btn-about">Sobre</button>
+                <button onclick="showSection('feedback')" id="btn-feedback">Feedback</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="section">
+            <div class="flashcard-container">
+                <div class="card" id="flashcard" onclick="flipCard()">
+                    <div class="card-face card-front">
+                        <h2 id="card-term">Carregando...</h2>
+                        <span class="hint">Clique para ver a definição</span>
+                    </div>
+                    <div class="card-face card-back">
+                        <p id="card-def">...</p>
+                        <span class="hint">Clique para voltar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button onclick="prevCard()" class="ctrl-btn">← Anterior</button>
+                <span id="counter">-- / --</span>
+                <button onclick="nextCard()" class="ctrl-btn">Próximo →</button>
+            </div>
+            
+            <button onclick="shuffleCards()" class="shuffle-btn"> Embaralhar Ordem</button>
+        </section>
+
+        <section id="about" class="section hidden">
+            <div class="content-box">
+                <h1>Sobre o Projeto</h1>
+                <p>O <strong>CyberFlash</strong> é uma ferramenta de estudo focada na memorização de siglas essenciais de Cibersegurança e Redes.</p>
+                <p>Baseado nos domínios de certificações como Security+, CEH e CISSP.</p>
+                <br>
+                <h3>Tecnologias:</h3>
+                <ul class="tech-list">
+                    <li>HTML5 Semântico</li>
+                    <li>CSS3 (Flexbox & Grid)</li>
+                    <li>Vanilla JavaScript</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="feedback" class="section hidden">
+            <div class="content-box">
+                <h1>Feedback</h1>
+                <p>Encontrou algum erro ou tem sugestões? Envie uma mensagem.</p>
+                
+                <form action="https://formspree.io/f/mdkbylbr" method="POST">
+                    <input type="text" name="name" placeholder="Seu Nome (Opcional)" class="input-field">
+                    
+                    <input type="email" name="email" placeholder="Seu E-mail (Opcional)" class="input-field">
+
+                    <textarea name="message" placeholder="Sua mensagem..." class="input-field" rows="5" required></textarea>
+                    
+                    <button type="submit" class="action-btn">Enviar Feedback</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title="Licença Creative Commons 4.0">
+                <img src="https://licensebuttons.net/l/by/4.0/88x31.png" alt="CC BY 4.0" class="cc-logo">
+            </a>
+            <span class="separator">//</span>
+            <p>
+                Projeto desenvolvido por 
+                <a href="https://www.linkedin.com/in/vinicius-wandembruck/" target="_blank" class="author">Vinicius Wandembruck</a>
+                <span class="separator-inline"> // </span>
+                <a href="https://utfpr.curitiba.br/vespas/" target="_blank" title="VESPAS - UTFPR" class="vespas-link">
+                    <img src="vespas.png" alt="Logo VESPAS" class="vespas-logo-inline">
+                </a>
+            </p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
