@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap // CyberSecurity</title>
+    <link rel="icon" type="image/png" href="logoi.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="roadmap.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CyberFlash_</div>
+            <div class="menu">
+                <a href="index.html">Treino</a>
+                <a href="quiz.html" class="quiz-outline">Modo Quiz</a>
+                <a href="roadmap.html" class="active-link">Roadmap</a>
+                <a href="index.html#about">Sobre</a>
+                <a href="index.html#feedback">Feedback</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="roadmap-layout">
+        
+        <aside class="roadmap-sidebar">
+            <div class="sticky-wrapper">
+                <h1>CAMINHO DO<br>ESPECIALISTA</h1>
+                
+                <div class="quote">
+                    "A partir do momento em que você vir o caminho em tudo o que fizer, você se tornará o caminho."<br>— Miyamoto Musashi
+                </div>
+
+           
+                <div class="progress-section">
+                    <div class="progress-tracker">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size: 0.9rem;">
+                            <span>Nível Atual</span>
+                            <span id="progress-percent" style="color:var(--accent)">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+             
+            </div>
+        </aside>
+
+        <!-- COLUNA DA DIREITA (CONTEÚDO) -->
+        <div class="roadmap-content">
+            <div class="timeline" id="timeline-root">
+                <!-- O JS vai desenhar o fluxo aqui -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Script -->
+    <script src="roadmap.js"></script>
+</body>
+</html>

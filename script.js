@@ -1,218 +1,69 @@
-// --- DADOS (LISTA COMPLETA E CATEGORIZADA) ---
-const data = [
-    // --- REDES E PROTOCOLOS ---
-    { term: "TCP", def: "Transmission Control Protocol. Garante entrega confiável e ordenada." },
-    { term: "UDP", def: "User Datagram Protocol. Rápido, sem conexão, sem garantia." },
-    { term: "IP", def: "Internet Protocol. Endereçamento e roteamento de pacotes." },
-    { term: "IPv4", def: "Endereço IP de 32 bits (ex: 192.168.1.1)." },
-    { term: "IPv6", def: "Endereço IP de 128 bits (hexadecimal)." },
-    { term: "ICMP", def: "Internet Control Message Protocol. Diagnóstico (Ping) e erros." },
-    { term: "ARP", def: "Address Resolution Protocol. Resolve IP para MAC." },
-    { term: "DNS", def: "Domain Name System. Traduz nomes (domínios) para IPs." },
-    { term: "DHCP", def: "Dynamic Host Configuration Protocol. Atribui IPs automaticamente." },
-    { term: "BGP", def: "Border Gateway Protocol. Roteamento central da Internet (entre AS)." },
-    { term: "MPLS", def: "Multiprotocol Label Switching. Roteamento de alto desempenho por labels." },
-    { term: "OSPF", def: "Open Shortest Path First. Protocolo de roteamento interior." },
-    { term: "HTTP", def: "Hypertext Transfer Protocol. Web padrão (texto claro)." },
-    { term: "HTTPS", def: "HTTP Secure. HTTP criptografado via TLS." },
-    { term: "TLS", def: "Transport Layer Security. Sucessor seguro do SSL." },
-    { term: "SSL", def: "Secure Sockets Layer. Protocolo antigo (depreciado)." },
-    { term: "SSH", def: "Secure Shell. Acesso remoto seguro (CLI)." },
-    { term: "FTP", def: "File Transfer Protocol. Transferência de arquivos (inseguro)." },
-    { term: "SFTP", def: "SSH File Transfer Protocol. Transferência segura." },
-    { term: "SMTP", def: "Simple Mail Transfer Protocol. ENVIO de e-mails." },
-    { term: "POP3", def: "Post Office Protocol 3. BAIXA e-mails do servidor." },
-    { term: "IMAP", def: "Internet Message Access Protocol. GERENCIA e-mails no servidor." },
-    { term: "SNMP", def: "Simple Network Management Protocol. Monitoramento de rede." },
-    { term: "RDP", def: "Remote Desktop Protocol. Acesso remoto gráfico (Windows)." },
-    
-    // --- ESTRUTURA E HARDWARE ---
-    { term: "OSI", def: "Open Systems Interconnection. Modelo de referência (7 camadas)." },
-    { term: "MAC", def: "Media Access Control. Endereço físico da placa." },
-    { term: "VLAN", def: "Virtual LAN. Segmentação lógica de rede local." },
-    { term: "NAT", def: "Network Address Translation. IP Privado -> IP Público." },
-    { term: "DMZ", def: "Demilitarized Zone. Área exposta isolada da rede interna." },
-    { term: "VPN", def: "Virtual Private Network. Túnel criptografado." },
-    { term: "TPM", def: "Trusted Platform Module. Chip de segurança em hardware." },
-    { term: "HSM", def: "Hardware Security Module. Cofre digital para chaves cripto." },
-    { term: "BIOS", def: "Basic Input/Output System. Firmware de inicialização antigo." },
-    { term: "UEFI", def: "Unified Extensible Firmware Interface. Sucessor moderno da BIOS." },
-    
-    // --- WIRELESS ---
-    { term: "SSID", def: "Service Set Identifier. Nome da rede Wi-Fi." },
-    { term: "WPA3", def: "Wi-Fi Protected Access 3. Padrão atual de segurança Wi-Fi." },
-    { term: "WPS", def: "Wi-Fi Protected Setup. Método de conexão (vulnerável)." },
 
-    // --- DEFESA E SEGURANÇA (BLUE TEAM) ---
-    { term: "CIA", def: "Confidentiality, Integrity, Availability. Tríade da segurança." },
-    { term: "FW", def: "Firewall. Filtra tráfego por IP/Porta." },
-    { term: "NGFW", def: "Next-Gen Firewall. Inspeção profunda (L7) e apps." },
-    { term: "WAF", def: "Web Application Firewall. Protege sites (SQLi, XSS)." },
-    { term: "IDS", def: "Intrusion Detection System. Apenas alerta invasões." },
-    { term: "IPS", def: "Intrusion Prevention System. Bloqueia invasões ativamente." },
-    { term: "SIEM", def: "Security Info & Event Mgmt. Centraliza e correlaciona logs." },
-    { term: "SOAR", def: "Security Orchestration & Response. Automatiza respostas a incidentes." },
-    { term: "EDR", def: "Endpoint Detection & Response. Antivírus avançado/comportamental." },
-    { term: "XDR", def: "Extended Detection & Response. EDR + Rede + Nuvem integrado." },
-    { term: "DLP", def: "Data Loss Prevention. Evita vazamento de dados sensíveis." },
-    { term: "NAC", def: "Network Access Control. Valida dispositivos antes de conectar." },
-    { term: "Honeypot", def: "Armadilha para atrair e estudar atacantes." },
+if (typeof fullData === 'undefined') {
+    console.error("ERRO CRÍTICO: O arquivo data.js não foi carregado ou está corrompido.");
+    alert("Erro ao carregar dados. Verifique se data.js está na pasta e carregado antes do script.js no HTML.");
+}
 
-    // --- ACESSO E IDENTIDADE (IAM) ---
-    { term: "AAA", def: "Authentication, Authorization, Accounting." },
-    { term: "IAM", def: "Identity and Access Management. Gestão de identidade." },
-    { term: "PAM", def: "Privileged Access Management. Cofre de senhas admin." },
-    { term: "MFA", def: "Multi-Factor Authentication. Algo que você sabe + tem + é." },
-    { term: "2FA", def: "Two-Factor Authentication. Dois fatores exatos." },
-    { term: "SSO", def: "Single Sign-On. Um login para múltiplos sistemas." },
-    { term: "SAML", def: "Security Assertion Markup Language. Troca de auth (XML)." },
-    { term: "OAuth", def: "Open Authorization. Permissão de acesso via tokens." },
-    { term: "OIDC", def: "OpenID Connect. Camada de identidade sobre o OAuth." },
-    { term: "JWT", def: "JSON Web Token. Token compacto para claims de segurança." },
-    { term: "LDAP", def: "Lightweight Directory Access Protocol. Consulta de diretórios (AD)." },
-    { term: "RBAC", def: "Role-Based Access Control. Acesso baseado no cargo." },
-    { term: "ABAC", def: "Attribute-Based Access Control. Acesso baseado em atributos/contexto." },
+const data = typeof fullData !== 'undefined' ? fullData : [];
 
-    // --- CRIPTOGRAFIA ---
-    { term: "PKI", def: "Public Key Infrastructure. Gestão de certificados digitais." },
-    { term: "CA", def: "Certificate Authority. Entidade que emite certificados." },
-    { term: "AES", def: "Advanced Encryption Standard. Criptografia simétrica robusta." },
-    { term: "RSA", def: "Rivest-Shamir-Adleman. Criptografia assimétrica padrão." },
-    { term: "ECC", def: "Elliptic Curve Cryptography. Chaves menores e eficientes." },
-    { term: "SHA", def: "Secure Hash Algorithm. Gera hash (resumo) único." },
-    { term: "HMAC", def: "Hash-based Message Auth Code. Integridade + Autenticidade." },
-    { term: "PGP", def: "Pretty Good Privacy. Privacidade para e-mails e arquivos." },
-
-    // --- ATAQUES E AMEAÇAS (RED TEAM) ---
-    { term: "DoS", def: "Denial of Service. Derrubar serviço por sobrecarga." },
-    { term: "DDoS", def: "Distributed DoS. Ataque coordenado de várias fontes." },
-    { term: "Botnet", def: "Rede de dispositivos zumbis controlados por atacante." },
-    { term: "MiTM", def: "Man-in-the-Middle. Interceptação de dados em trânsito." },
-    { term: "XSS", def: "Cross-Site Scripting. Injeção de script no navegador da vítima." },
-    { term: "CSRF", def: "Cross-Site Request Forgery. Força o usuário a executar ação." },
-    { term: "SQLi", def: "SQL Injection. Manipular banco de dados via input." },
-    { term: "RCE", def: "Remote Code Execution. Executar comandos no servidor alvo." },
-    { term: "Zero-Day", def: "Vulnerabilidade recém-descoberta (sem correção)." },
-    { term: "APT", def: "Advanced Persistent Threat. Grupo hacker sofisticado/estatal." },
-    { term: "Ransomware", def: "Malware que criptografa dados e exige resgate." },
-    { term: "Phishing", def: "E-mail/site falso para roubar credenciais." },
-    { term: "Vishing", def: "Phishing por voz (ligação telefônica)." },
-    { term: "Smishing", def: "Phishing por SMS." },
-    { term: "Social Eng", def: "Engenharia Social. Manipulação psicológica de pessoas." },
-    { term: "RAT", def: "Remote Access Trojan. Controle total remoto do PC." },
-    { term: "C2", def: "Command & Control. Servidor que comanda o malware." },
-    { term: "LFI", def: "Local File Inclusion. Ler arquivos internos do servidor." },
-    { term: "SSRF", def: "Server-Side Request Forgery. Servidor ataca a si mesmo/rede interna." },
-
-    // --- GOVERNANÇA, RISCO E COMPLIANCE (GRC) ---
-    { term: "GDPR", def: "General Data Protection Regulation (Lei da UE)." },
-    { term: "LGPD", def: "Lei Geral de Proteção de Dados (Brasil)." },
-    { term: "ISO 27001", def: "Padrão internacional de Gestão de Segurança da Informação." },
-    { term: "NIST", def: "National Institute of Standards and Tech. Framework de Cyber (EUA)." },
-    { term: "PCI-DSS", def: "Padrão de segurança para cartões de crédito." },
-    { term: "HIPAA", def: "Lei de proteção de dados de saúde (Health)." },
-    { term: "SLA", def: "Service Level Agreement. Acordo de nível de serviço." },
-    { term: "NDA", def: "Non-Disclosure Agreement. Acordo de confidencialidade." },
-    { term: "RPO", def: "Recovery Point Objective. O quanto de dados aceita-se perder." },
-    { term: "RTO", def: "Recovery Time Objective. Tempo máximo para voltar a operar." },
-    { term: "MTBF", def: "Mean Time Between Failures. Tempo médio entre falhas." },
-    { term: "MTTR", def: "Mean Time To Repair. Tempo médio para consertar." },
-    { term: "BCP", def: "Business Continuity Plan. Plano para manter o negócio operando." },
-    { term: "DRP", def: "Disaster Recovery Plan. Plano técnico para recuperar TI." },
-    { term: "CISO", def: "Chief Information Security Officer. Diretor de Segurança." },
-    { term: "DPO", def: "Data Protection Officer. Encarregado de dados (LGPD)." },
-
-    // --- DEVSECOPS E NUVEM ---
-    { term: "CI/CD", def: "Continuous Integration / Delivery. Pipeline de deploy." },
-    { term: "SAST", def: "Static Analysis. Teste de segurança no código fonte (White box)." },
-    { term: "DAST", def: "Dynamic Analysis. Teste de segurança com app rodando (Black box)." },
-    { term: "SCA", def: "Software Composition Analysis. Checa vulns em bibliotecas." },
-    { term: "SBOM", def: "Software Bill of Materials. Lista de ingredientes do software." },
-    { term: "IaC", def: "Infrastructure as Code. Infra gerenciada via script (Terraform)." },
-    { term: "SaaS", def: "Software as a Service. Ex: Gmail, Salesforce." },
-    { term: "PaaS", def: "Platform as a Service. Ex: Heroku, Google App Engine." },
-    { term: "IaaS", def: "Infrastructure as a Service. Ex: AWS EC2, Azure VM." },
-    { term: "CASB", def: "Cloud Access Security Broker. Segurança entre usuário e nuvem." },
-    { term: "SASE", def: "Secure Access Service Edge. Rede + Segurança na borda." },
-    { term: "ZTNA", def: "Zero Trust Network Access. 'Nunca confie, sempre verifique'." },
-    { term: "CVE", def: "Common Vulnerabilities and Exposures. ID global de falhas." },
-    { term: "CWE", def: "Common Weakness Enumeration. Categorias de falhas de código." },
-    { term: "CVSS", def: "Common Vulnerability Scoring System. Nota de gravidade (0-10)." },
-    { term: "OWASP", def: "Open Web App Security Project. Top 10 vulnerabilidades." },
-    { term: "API", def: "Application Programming Interface. Comunicação entre apps." },
-    { term: "REST", def: "Representational State Transfer. Estilo de arquitetura API." },
-    { term: "JSON", def: "JavaScript Object Notation. Formato leve de dados." },
-    { term: "IoT", def: "Internet of Things. Dispositivos conectados." },
-    { term: "BYOD", def: "Bring Your Own Device. Uso de dispositivos pessoais no trabalho." }
-];
-
-// --- VARIÁVEIS DE CONTROLE ---
 let currentIndex = 0;
 let isFlipped = false;
 
-// --- FUNÇÕES GLOBAIS ---
+document.addEventListener('DOMContentLoaded', () => {
+    
+    loadCard();
+});
 
-// 1. Carrega o Card Inicial
 function loadCard() {
     const termElement = document.getElementById('card-term');
     const defElement = document.getElementById('card-def');
+    const counterElement = document.getElementById('counter');
     const cardElement = document.getElementById('flashcard');
 
-    // Segurança: se os elementos não existem, para a execução
     if (!termElement || !defElement) return;
 
-    // Se a carta estiver virada, desvira antes de trocar o conteúdo
+    
+    if (data.length === 0) {
+        termElement.textContent = "Erro de Dados";
+        defElement.textContent = "Não foi possível carregar as siglas. Verifique o console (F12).";
+        return;
+    }
+
     if (isFlipped) {
         cardElement.classList.remove('flipped');
         isFlipped = false;
-        // Espera a animação para trocar o texto (300ms)
         setTimeout(updateText, 300);
     } else {
         updateText();
     }
 }
 
-// 2. Atualiza o Texto do Card
 function updateText() {
     const termElement = document.getElementById('card-term');
     const defElement = document.getElementById('card-def');
     const counterElement = document.getElementById('counter');
 
-    if (data.length > 0) {
-        termElement.textContent = data[currentIndex].term;
-        defElement.textContent = data[currentIndex].def;
-        counterElement.textContent = `${currentIndex + 1} / ${data.length}`;
-    }
+    termElement.textContent = data[currentIndex].term;
+    defElement.textContent = data[currentIndex].def;
+    counterElement.textContent = `${currentIndex + 1} / ${data.length}`;
 }
 
-// 3. Vira o Card
+
 function flipCard() {
     const cardElement = document.getElementById('flashcard');
     cardElement.classList.toggle('flipped');
     isFlipped = !isFlipped;
 }
-
-// 4. Próximo Card
 function nextCard() {
-    if (currentIndex < data.length - 1) {
-        currentIndex++;
-    } else {
-        currentIndex = 0; // Volta ao início
-    }
+    if (currentIndex < data.length - 1) currentIndex++;
+    else currentIndex = 0;
     loadCard();
 }
-
-// 5. Card Anterior
 function prevCard() {
-    if (currentIndex > 0) {
-        currentIndex--;
-    } else {
-        currentIndex = data.length - 1; // Vai para o final
-    }
+    if (currentIndex > 0) currentIndex--;
+    else currentIndex = data.length - 1;
     loadCard();
 }
-
-// 6. Embaralhar
 function shuffleCards() {
     for (let i = data.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -221,33 +72,33 @@ function shuffleCards() {
     currentIndex = 0;
     loadCard();
 }
-
-// 7. Navegação (Navbar)
 function showSection(sectionId) {
-    // Esconde todas as seções
-    document.querySelectorAll('.section').forEach(sec => {
-        sec.classList.add('hidden'); 
-    });
     
-    // Remove a classe 'active-btn' de todos os botões
+    document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+    
+    
     document.querySelectorAll('.menu button').forEach(btn => {
-        btn.classList.remove('active-btn');
+        btn.classList.remove('text-green');
+        btn.style.color = ''; 
     });
     
-    // Mostra a seção desejada
+ 
     const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.remove('hidden');
-    }
+    if (targetSection) targetSection.classList.remove('hidden');
 
-    // Ativa o botão correspondente
+    
     const activeBtn = document.getElementById('btn-' + sectionId);
-    if (activeBtn) {
-        activeBtn.classList.add('active-btn');
-    }
+    if (activeBtn) activeBtn.classList.add('text-green');
 }
-
-// --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
-    loadCard();
+    
+    const hash = window.location.hash.replace('#', '');
+
+    
+    if (hash === 'about' || hash === 'feedback') {
+        showSection(hash); 
+    } else {
+        
+        showSection('home'); 
+    }
 });

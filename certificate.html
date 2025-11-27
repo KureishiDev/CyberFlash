@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Certificado de Conclusão // CyberFlash</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #0d1117; /* Cinza Espacial - Identidade do Site */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cert-container {
+            width: 297mm; /* Tamanho A4 Paisagem */
+            height: 210mm;
+            background: #fff;
+            color: #000;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 10px solid #000;
+            background-image: 
+                radial-gradient(#ddd 1px, transparent 1px),
+                radial-gradient(#ddd 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .corner {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #00ff41; /* Verde Cyber */
+        }
+        .tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+        .bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+        .br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        .header-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .content {
+            margin-top: 50px;
+            text-align: center;
+            width: 80%;
+        }
+
+        .student-name {
+            font-size: 3rem;
+            border-bottom: 2px solid #000;
+            display: block;
+            margin: 20px 0;
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            align-items: flex-end;
+        }
+
+        .sign-line {
+            border-top: 1px solid #000;
+            width: 200px;
+            text-align: center;
+            padding-top: 10px;
+            font-size: 0.8rem;
+        }
+
+        .hash-code {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 5px;
+            max-width: 200px;
+            word-wrap: break-word;
+        }
+
+        
+        .no-print {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .btn-print {
+            background: #00ff41;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .btn-print:hover {
+            transform: translateY(-2px);
+            background: #00b32d;
+        }
+
+        @media print {
+            body { background: none; }
+            .cert-container { box-shadow: none; border: 5px solid #000; width: 100%; height: 100%; margin: 0; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cert-container">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <div class="header-logo">CyberFlash_</div>
+
+        <h1>CERTIFICADO</h1>
+        <div class="subtitle">DE COMPETÊNCIA TÉCNICA</div>
+
+        <div class="content">
+            <p>Certificamos que</p>
+            <span id="name-display" class="student-name">...</span>
+            <p>Concluiu com êxito o exame prático de acrônimos, demonstrando o <strong>reconhecimento do glossário basilar de Cibersegurança</strong> e fundamentos de redes.</p>
+        </div>
+
+        <div class="footer">
+            <div class="date-box">
+                <p>Data de Emissão</p>
+                <strong id="date-display">--/--/----</strong>
+            </div>
+
+            <div style="text-align: center;">
+                <!-- QR Code -->
+                <img id="qr-img" src="" alt="QR" style="opacity: 0.8; width: 100px; height: 100px;">
+                <div class="hash-code">ID: <span id="hash-id">---</span></div>
+            </div>
+
+            <div class="sign-line">
+                <strong>CyberFlash System</strong><br>
+                Validação Automática
+            </div>
+        </div>
+    </div>
+
+    <div class="no-print">
+        <a href="index.html" style="color: #8b949e; text-decoration: none; font-size: 0.9rem;">Voltar ao Início</a>
+        <button onclick="window.print()" class="btn-print"> Imprimir / Salvar PDF</button>
+    </div>
+
+    <script>
+        // Recupera dados do LocalStorage
+        const name = localStorage.getItem('cert_name');
+        const date = localStorage.getItem('cert_date');
+        const certID = localStorage.getItem('cert_id');
+        
+        if(name && certID) {
+            document.getElementById('name-display').innerText = name;
+            document.getElementById('date-display').innerText = date;
+            // Mostra ID curto visualmente
+            document.getElementById('hash-id').innerText = certID.substring(0, 15) + "...";
+
+            // Link oficial para o validador no Render
+            const baseUrl = "https://cyberflash.onrender.com/validator.html";
+            const validationLink = `${baseUrl}?id=${certID}`;
+            
+            // Gera QR Code
+            document.getElementById('qr-img').src = 
+                `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(validationLink)}`;
+        } else {
+            alert("Dados do certificado não encontrados. Por favor, complete o Quiz de 90 questões novamente.");
+            window.location.href = 'quiz.html';
+        }
+    </script>
+</body>
+</html>

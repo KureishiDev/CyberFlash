@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberQuiz // Seleção de Modo</title>
+    <link rel="stylesheet" href="quiz.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <a href="index.html" class="exit-btn" title="Sair">×</a>
+
+    <div id="quiz-lobby" class="center-stage">
+        <div class="lobby-card">
+            <h1>MODO DESAFIO</h1>
+            <p>Selecione a quantidade de questões:</p>
+            
+           <div class="mode-select">
+                <button onclick="initQuiz(30)" class="mode-btn">30 Questões<br><span class="desc">Treino Rápido</span></button>
+                <button onclick="initQuiz(60)" class="mode-btn">60 Questões<br><span class="desc">Padrão</span></button>
+                <button onclick="initQuiz(90)" class="mode-btn gold-border">90 Questões<br><span class="desc">★ Valendo Certificado</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-ui" class="hidden">
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <main id="quiz-container" class="center-stage"></main>
+    </div>
+
+    <div id="result-modal" class="hidden">
+        <div class="result-box">
+            <h1 id="result-title">Resultado</h1>
+            
+            <div class="score-circle">
+                <span id="score-number">0</span>
+                <span class="score-total" id="score-total-display">/ 0</span>
+            </div>
+            
+            <p id="feedback-msg">...</p>
+
+            <div id="certificate-area" class="hidden">
+                <hr style="border-color:#333; margin: 15px 0;">
+                <p style="color: gold; font-weight: bold;">🏆 VOCÊ DESBLOQUEOU O CERTIFICADO!</p>
+                <input type="text" id="student-name" placeholder="Digite seu Nome Completo" class="cert-input">
+                <button onclick="generateCertificate()" class="btn-cert">Emitir Certificado</button>
+            </div>
+            
+            <div class="result-actions">
+                <button onclick="location.reload()" class="btn-restart">Novo Jogo</button>
+                <a href="index.html" class="btn-home">Sair</a>
+            </div>
+            
+            <div id="detailed-results"></div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>

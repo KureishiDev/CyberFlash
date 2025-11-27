@@ -3,25 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>CyberFlash - Flashcards de Cibersegurança</title>
     
     <link rel="icon" type="image/png" href="logoi.png">
-    <link rel="apple-touch-icon" href="logoi.png">
-
-    <meta name="description" content="Ferramenta prática de estudo para memorizar siglas essenciais de Cibersegurança, Redes e Governança (TCP, OSI, CIA, LGPD).">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="CyberFlash // Treino de Cibersegurança">
-    <meta property="og:description" content="Memorize as principais siglas de Segurança e Redes com Flashcards interativos.">
-    <meta property="og:image" content="logoi.png"> <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CyberFlash // Treino de Cibersegurança">
-    <meta name="twitter:description" content="Memorize as principais siglas de Segurança e Redes com Flashcards interativos.">
-    <meta name="twitter:image" content="logoi.png">
+    <meta name="description" content="Estudo de siglas de Cibersegurança.">
+    <meta property="og:title" content="CyberFlash">
+    <meta property="og:image" content="logoi.png">
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -32,7 +19,12 @@
         <div class="nav-container">
             <div class="logo">CyberFlash_</div>
             <div class="menu">
-                <button onclick="showSection('home')" class="active-btn" id="btn-home">Treino</button>
+                <button onclick="showSection('home')" id="btn-home" class="active-btn">Treino</button> 
+                
+                <a href="quiz.html" class="quiz-outline">Modo Quiz</a>
+                
+                <a href="roadmap.html" style="text-decoration:none; color:var(--text-secondary); font-weight:500;">Roadmap</a>
+
                 <button onclick="showSection('about')" id="btn-about">Sobre</button>
                 <button onclick="showSection('feedback')" id="btn-feedback">Feedback</button>
             </div>
@@ -41,6 +33,14 @@
 
     <main>
         <section id="home" class="section">
+            
+            <div class="site-info-banner">
+                <span class="info-icon">Ei!</span>
+                <p>
+                    Você está no modo <strong>Treino</strong>. Use o menu superior para acessar o <span class="highlight">Quiz</span> e o <span class="highlight">Roadmap</span>.
+                </p>
+            </div>
+            </div>
             <div class="flashcard-container">
                 <div class="card" id="flashcard" onclick="flipCard()">
                     <div class="card-face card-front">
@@ -55,9 +55,9 @@
             </div>
 
             <div class="controls">
-                <button onclick="prevCard()" class="ctrl-btn">← Anterior</button>
+                <button onclick="prevCard()" class="ctrl-btn">Anterior</button>
                 <span id="counter">-- / --</span>
-                <button onclick="nextCard()" class="ctrl-btn">Próximo →</button>
+                <button onclick="nextCard()" class="ctrl-btn">Próximo</button>
             </div>
             
             <button onclick="shuffleCards()" class="shuffle-btn">Embaralhar Ordem</button>
@@ -65,32 +65,27 @@
 
         <section id="about" class="section hidden">
             <div class="content-box profile-card">
-                
                 <div class="profile-header">
                     <img src="eu.jpg" alt="Vinicius Wandembruck" class="profile-photo">
                     <h2>Vinicius Wandembruck</h2>
-                    <p class="subtitle">ESTUDANTE DE CYBER</p>
+                    <p class="subtitle">ENTUSIASTA DE CIBERSEGURANÇA</p>
                 </div>
-
                 <div class="bio-text">
                     <p>
-                        Utilizei o desenvolvimento deste site como um <strong>artefato prático</strong> para estudar e fixar acrônimos relevantes de cibersegurança, unindo a prática de código com a teoria de redes e defesa cibernética.
+                        Sou movido pela curiosidade. Utilizei o desenvolvimento deste site como um <strong>artefato prático</strong> para estudar e fixar acrônimos relevantes de cibersegurança.
                     </p>
-                    
                     <div style="margin-top: 25px; text-align: center;">
                         <a href="https://www.linkedin.com/in/vinicius-wandembruck/" target="_blank" class="social-btn">
                             Conectar no LinkedIn
                         </a>
                     </div>
                 </div>
-
                 <hr class="divider">
-
                 <h3>STACK DESTE PROJETO</h3>
                 <div class="stack-container">
                     <span class="badge">HTML5 Semântico</span>
-                    <span class="badge">CSS3 (Grid/Flex)</span>
-                    <span class="badge">JavaScript (Vanilla)</span>
+                    <span class="badge">CSS3</span>
+                    <span class="badge">JavaScript</span>
                     <span class="badge">Git</span>
                     <span class="badge">Render Cloud</span>
                 </div>
@@ -100,8 +95,7 @@
         <section id="feedback" class="section hidden">
             <div class="content-box">
                 <h1>Feedback</h1>
-                <p>Encontrou algum erro ou tem sugestões? Envie uma mensagem.</p>
-                
+                <p>Encontrou algum erro ou tem sugestões?</p>
                 <form action="https://formspree.io/f/mdkbylbr" method="POST">
                     <input type="text" name="name" placeholder="Seu Nome (Opcional)" class="input-field">
                     <input type="email" name="email" placeholder="Seu E-mail (Opcional)" class="input-field">
@@ -112,34 +106,25 @@
         </section>
     </main>
 
-  <footer>
+    <footer>
         <div class="footer-content">
-            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title="Licença Creative Commons 4.0">
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">
                 <img src="https://licensebuttons.net/l/by/4.0/88x31.png" alt="CC BY 4.0" class="cc-logo">
             </a>
-            
             <span class="separator">//</span>
-            
             <p>
-                Projeto por 
-                <a href="https://www.linkedin.com/in/vinicius-wandembruck/" target="_blank" class="author">Vinicius Wandembruck</a>
-                
+                Projeto por <a href="https://www.linkedin.com/in/vinicius-wandembruck/" target="_blank" class="author">Vinicius Wandembruck</a>
                 <span class="separator-inline"> // </span>
-                
-                <a href="https://secheader-scan.onrender.com" target="_blank" class="author" title="Ver meu outro projeto">
-                    SecHeader Scan
-                </a>
-                
+                <a href="https://secheader-scan.onrender.com" target="_blank" class="author">SecHeader Scan</a>
                 <span class="separator-inline"> // </span>
-                
-                <a href="https://utfpr.curitiba.br/vespas/" target="_blank" title="VESPAS - UTFPR" class="vespas-link">
+                <a href="https://utfpr.curitiba.br/vespas/" target="_blank" class="vespas-link">
                     <img src="vespas.png" alt="Logo VESPAS" class="vespas-logo-inline">
                 </a>
             </p>
         </div>
     </footer>
     
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

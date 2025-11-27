@@ -1,0 +1,274 @@
+:root {
+    --bg-color: #0d1117;
+    --card-bg: #161b22;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --accent: #00ff41; /* Verde Neon */
+    --accent-hover: #00b32d;
+    --wrong: #ff4444;   
+    --border: #30363d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+
+/* --- ESTRUTURA TELA CHEIA (Para centralizar bem) --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow: hidden; 
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+/* O container do jogo precisa ocupar toda a tela disponível */
+#game-ui {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Centralização Absoluta */
+.center-stage {
+    flex: 1; /* Ocupa todo o espaço vertical disponível */
+    display: flex;
+    justify-content: center; /* Centro Horizontal */
+    align-items: center;     /* Centro Vertical */
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/* LOBBY DE SELEÇÃO */
+#quiz-lobby {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lobby-card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    animation: fadeIn 0.5s;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.lobby-card h1 { 
+    font-family: 'JetBrains Mono'; 
+    color: var(--accent); 
+    margin-bottom: 20px; 
+    font-size: 2.5rem; 
+    letter-spacing: -1px;
+}
+
+.lobby-card p { margin-bottom: 40px; color: var(--text-secondary); }
+
+.mode-select {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 25px 20px;
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'JetBrains Mono';
+}
+
+.mode-btn:hover {
+    border-color: var(--accent);
+    background: #1c232b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1);
+}
+
+.mode-btn .desc {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    color: var(--text-secondary);
+    font-family: 'Roboto';
+}
+
+/* --- CLASSE DOURADA (GOLD) --- */
+.gold-border { 
+    border-color: #ffd700; 
+    color: #ffd700;        
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); 
+}
+
+.gold-border:hover { 
+    background: #ffd700; 
+    color: #000; 
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); 
+    transform: translateY(-5px);
+    border-color: #ffd700;
+}
+
+.gold-border .desc { color: #ffd700; opacity: 0.8; }
+.gold-border:hover .desc { color: #000; font-weight: bold; }
+
+/* --- BOTÃO SAIR (X) --- */
+.exit-btn {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    line-height: 1;
+    z-index: 20;
+    transition: color 0.3s;
+}
+.exit-btn:hover { color: var(--wrong); }
+
+/* --- BARRA DE PROGRESSO --- */
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background-color: var(--border);
+    position: fixed; top: 0; left: 0; z-index: 10;
+}
+.progress-bar {
+    height: 100%;
+    background-color: var(--accent);
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* --- CARD DO JOGO --- */
+.quiz-card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    animation: fadeIn 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+.question-header { text-align: center; margin-bottom: 25px; }
+.question-number { font-family: 'JetBrains Mono'; color: var(--text-secondary); font-size: 0.8rem; display: block; margin-bottom: 10px; }
+.term-title { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; color: var(--accent); word-break: break-word; }
+
+@media (max-width: 600px) {
+    .term-title { font-size: 1.8rem; }
+    .quiz-card { padding: 20px; width: 95%; }
+    .mode-select { flex-direction: column; }
+}
+
+/* OPÇÕES */
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+
+.option-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: left;
+    transition: 0.2s;
+    min-height: 50px;
+}
+
+.option-btn:hover { border-color: var(--accent); background: rgba(0, 255, 65, 0.05); }
+.option-btn.clicked { background-color: var(--accent); color: #0d1117; font-weight: bold; border-color: var(--accent); }
+
+/* --- MODAL DE RESULTADO --- */
+.hidden { display: none !important; }
+
+#result-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(13, 17, 23, 0.98);
+    display: flex; justify-content: center; align-items: center; z-index: 100;
+}
+
+.result-box {
+    background: var(--card-bg);
+    padding: 35px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    text-align: center;
+    width: 90%; max-width: 550px;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+}
+
+.result-box h1 { color: var(--text-primary); margin-bottom: 10px; }
+.score-circle { font-size: 3.5rem; color: var(--accent); margin: 20px 0; font-family: 'JetBrains Mono'; }
+.score-total { font-size: 1.5rem; color: var(--text-secondary); }
+
+.result-actions { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+.btn-restart, .btn-home { padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; text-decoration: none; font-size: 0.9rem; }
+.btn-restart { background: var(--accent); color: #0d1117; border: none; }
+.btn-restart:hover { background: var(--accent-hover); }
+.btn-home { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+.btn-home:hover { border-color: var(--text-primary); }
+
+/* CERTIFICADO INPUTS */
+.cert-input {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid var(--border);
+    background: var(--bg-color);
+    color: var(--accent);
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'JetBrains Mono';
+}
+.cert-input:focus { outline: none; border-color: var(--accent); }
+
+.btn-cert {
+    width: 100%;
+    padding: 12px;
+    background: #ffd700; /* Botão Dourado aqui também */
+    color: #0d1117;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn-cert:hover { background: #ffea00; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+
+/* RELATÓRIO */
+#detailed-results { text-align: left; margin-top: 30px; font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 10px;}
+.result-item { padding: 12px 0; border-bottom: 1px solid #333; }
+.wrong-txt { color: var(--wrong); display: block; margin-top: 5px; }
+.correct-txt { color: var(--accent); display: block; margin-top: 2px; }
+
+/* SCROLLBAR PERSONALIZADA */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0d1117; border-left: 1px solid #30363d; }
+::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; border: 1px solid #0d1117; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }

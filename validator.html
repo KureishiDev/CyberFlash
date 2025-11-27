@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação // CyberFlash</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .validator-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .validation-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .input-code {
+            width: 100%;
+            padding: 15px;
+            background: #0d1117;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono';
+            margin: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            word-break: break-all;
+        }
+
+        .btn-validate {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn-validate:hover { background: var(--accent-hover); }
+
+        #result-area { margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px; }
+        .valid-badge { 
+            color: #00ff41; border: 1px solid #00ff41; 
+            padding: 10px; display: inline-block; margin-bottom: 15px; 
+            font-weight: bold; letter-spacing: 1px;
+        }
+        .invalid-badge { 
+            color: #ff4444; border: 1px solid #ff4444; 
+            padding: 10px; display: inline-block;
+            font-weight: bold;
+        }
+        .data-row { display: flex; justify-content: space-between; margin: 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .data-label { color: #8b949e; }
+        .data-value { color: #fff; font-family: 'JetBrains Mono'; font-weight: bold;}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CyberFlash_</div>
+            <div class="menu">
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: none;">Voltar ao Início</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="validator-container">
+        <div class="validation-card">
+            <h1 style="color: var(--accent);">VALIDAR CERTIFICADO</h1>
+            <p style="color: #8b949e;">Insira o ID do certificado (CF-...)</p>
+
+            <input type="text" id="cert-id-input" class="input-code" placeholder="Cole o código aqui..." autocomplete="off">
+            <button onclick="validateCert()" class="btn-validate">VERIFICAR AUTENTICIDADE</button>
+
+            <div id="result-area" class="hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idParam = urlParams.get('id');
+            if(idParam) {
+                document.getElementById('cert-id-input').value = idParam;
+                validateCert(); 
+            }
+        }
+
+        function validateCert() {
+            const input = document.getElementById('cert-id-input').value.trim();
+            const resultArea = document.getElementById('result-area');
+            
+            resultArea.innerHTML = "";
+            resultArea.classList.remove('hidden');
+
+            if (!input.startsWith("CF-")) {
+                showInvalid("Formato inválido. Deve começar com CF-");
+                return;
+            }
+
+            try {
+                
+                const base64Token = input.replace("CF-", "");
+                
+           
+                const jsonString = decodeURIComponent(atob(base64Token));
+                
+            
+                const data = JSON.parse(jsonString);
+
+                if(data.n && data.d && data.s === "ELITE") {
+                    showValid(data);
+                } else {
+                    showInvalid("Código não reconhecido pelo sistema.");
+                }
+
+            } catch (e) {
+                console.error(e);
+                showInvalid("Código corrompido ou alterado.");
+            }
+        }
+
+        function showValid(data) {
+            const html = `
+                <div class="valid-badge">✓ CERTIFICADO VÁLIDO</div>
+                <div class="data-row">
+                    <span class="data-label">Aluno:</span>
+                    <span class="data-value">${data.n}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Emissão:</span>
+                    <span class="data-value">${data.d}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Nível:</span>
+                    <span class="data-value" style="color:gold">ELITE (90 Questões)</span>
+                </div>
+                <p style="margin-top:20px; font-size:0.8rem; color:#555;">
+                    Emitido via CyberFlash Authority.
+                </p>
+            `;
+            document.getElementById('result-area').innerHTML = html;
+        }
+
+        function showInvalid(msg) {
+            const html = `
+                <div class="invalid-badge">✕ INVÁLIDO</div>
+                <p style="color: #ff4444; margin-top: 15px;">${msg}</p>
+            `;
+            document.getElementById('result-area').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
