@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
 }
 
-/* --- NAVBAR RESPONSIVA --- */
+
 .navbar {
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border);
@@ -30,14 +30,12 @@ body {
 
 .nav-container {
     display: flex;
-    flex-direction: column; /* Mobile: Empilhado */
-    align-items: center;
+    flex-direction: column; 
     gap: 15px;
     width: 100%;
     max-width: 1000px;
 }
 
-/* Tablet e Desktop: Lado a lado */
 @media (min-width: 600px) {
     .nav-container {
         flex-direction: row;
@@ -56,7 +54,7 @@ body {
 .menu {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap; /* Permite quebrar linha em telas muito pequenas */
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -73,7 +71,7 @@ body {
 
 .menu button:hover, .menu button.active-btn { color: var(--accent); }
 
-/* --- CONTEÚDO PRINCIPAL --- */
+
 main { 
     flex: 1; 
     display: flex; 
@@ -86,11 +84,11 @@ main {
 .section { width: 100%; max-width: 600px; text-align: center; }
 .hidden { display: none; }
 
-/* --- FLASHCARD 3D --- */
+
 .flashcard-container {
     perspective: 1000px;
     width: 100%;
-    height: 300px; /* Altura fixa */
+    height: 300px;
     margin-bottom: 20px;
     cursor: pointer;
 }
@@ -121,12 +119,12 @@ main {
     padding: 20px;
 }
 
-/* Tipografia responsiva no card */
+
 .card-front h2 { 
     font-size: 2.5rem; 
     font-family: 'JetBrains Mono', monospace; 
     color: var(--accent);
-    word-break: break-all; /* Evita que siglas gigantes quebrem o layout */
+    word-break: break-all; 
 }
 
 @media (min-width: 600px) {
@@ -137,7 +135,7 @@ main {
 .card-back p { font-size: 1.1rem; line-height: 1.5; }
 .hint { font-size: 0.8rem; opacity: 0.5; margin-top: 15px; color: var(--text-secondary); }
 
-/* --- BOTÕES E CONTROLES --- */
+
 .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
 .ctrl-btn, .action-btn, .shuffle-btn {
     padding: 10px 15px;
@@ -148,13 +146,13 @@ main {
     cursor: pointer;
     transition: 0.2s;
     font-weight: bold;
-    flex: 1; /* Faz botões ocuparem espaço igual no mobile */
+    flex: 1; 
 }
 .shuffle-btn { width: 100%; }
 .ctrl-btn:hover, .shuffle-btn:hover { background-color: var(--accent); color: black; }
 .action-btn { background-color: var(--accent); color: black; margin-top: 10px;}
 
-/* --- SOBRE & FEEDBACK --- */
+
 .content-box {
     background-color: var(--card-bg);
     padding: 20px;
@@ -171,24 +169,24 @@ main {
     width: 100%; padding: 10px; margin: 5px 0 15px;
     background: var(--bg-color); border: 1px solid var(--border);
     color: white; border-radius: 5px;
-    resize: vertical; /* Permite redimensionar textarea verticalmente */
+    resize: vertical; 
 }
 .tech-list { list-style: inside square; padding-left: 10px; color: var(--text-secondary); }
 
-/* --- FOOTER (CORREÇÃO DE ALINHAMENTO) --- */
+
 footer {
     background-color: var(--card-bg);
     border-top: 1px solid var(--border);
-    padding: 20px 10px; /* Padding menor nas laterais para mobile */
+    padding: 20px 10px; 
     text-align: center;
     font-size: 0.85rem;
     color: var(--text-secondary);
-    margin-top: auto; /* Garante que o footer fique embaixo mesmo com pouco conteúdo */
+    margin-top: auto; 
 }
 
 .footer-content {
     display: flex;
-    flex-direction: column; /* Mobile: Um item embaixo do outro */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 15px;
@@ -196,7 +194,7 @@ footer {
     margin: 0 auto;
 }
 
-/* Desktop: Linha única centralizada */
+
 @media (min-width: 768px) {
     .footer-content {
         flex-direction: row;
@@ -208,7 +206,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap; /* Se o nome for muito longo no mobile, quebra linha */
+    flex-wrap: wrap; 
     gap: 5px;
 }
 
@@ -221,11 +219,11 @@ footer {
 
 .author:hover { text-decoration: underline; }
 
-/* Separadores visuais (//) */
+
 .separator {
     color: var(--border);
     font-family: 'JetBrains Mono', monospace;
-    display: none; /* Esconde barra vertical no mobile */
+    display: none; 
 }
 
 .separator-inline {
@@ -238,7 +236,7 @@ footer {
     .separator { display: inline; }
 }
 
-/* Logos */
+
 .cc-logo {
     height: 31px;
     vertical-align: middle;
@@ -260,12 +258,12 @@ footer {
 }
 
 .vespas-link:hover .vespas-logo-inline {
-    transform: scale(1.1); /* Efeito de zoom ao passar mouse */
+    transform: scale(1.1); 
 }
-/* --- ESTILOS DO PERFIL (SOBRE) --- */
+
 
 .profile-card {
-    text-align: center; /* Centraliza tudo no card */
+    text-align: center; 
 }
 
 .profile-photo {
@@ -349,7 +347,6 @@ footer {
 
 .social-btn:hover {
     background-color: var(--accent);
-    color: #000; /* Texto preto no hover */
+    color: #000; 
     box-shadow: 0 0 15px var(--accent);
 }
-
