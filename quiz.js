@@ -2,20 +2,48 @@ let targetQuestions = 60;
 let quizQuestions = [];
 let userAnswers = {}; 
 let currentQuestionIndex = 0;
-let wordDictionary = {}; 
 
-// Lista de palavras comuns para ignorar na geração de siglas falsas
-const BLOCKLIST = ["EUA", "USA", "BRASIL", "EX", "PING", "COM", "PARA", "DOS", "DAS", "UMA", "UM", "QUE", "SAO", "NAO", "ETC", "CHIP", "VIA", "CLI", "APP", "APPS", "WEB", "USB", "LOGS", "LIST"];
+// --- BANCO DE PALAVRAS TECH EM INGLÊS (Hardcoded) ---
+
+const TECH_VOCABULARY = {
+    A: ["Access", "Advanced", "Application", "Authentication", "Algorithm", "Active", "Architecture", "Audit", "Automation", "Address"],
+    B: ["Base", "Bit", "Block", "Bridge", "Binary", "Boot", "Backup", "Border", "Bus", "Buffer"],
+    C: ["Control", "Computer", "Cyber", "Cloud", "Code", "Cipher", "Cache", "Client", "Connection", "Core", "Common"],
+    D: ["Data", "Digital", "Domain", "Disk", "Dynamic", "Device", "Database", "Distributed", "Defense", "Detection"],
+    E: ["Electronic", "Encryption", "Enterprise", "Error", "Ethernet", "Exchange", "Extended", "Engine", "External", "Event"],
+    F: ["File", "Firewall", "Frame", "Function", "Format", "Firmware", "Frequency", "Filter", "Flow", "Factor"],
+    G: ["Gateway", "Global", "Group", "Graphic", "Grid", "Generation", "Generic", "Gigabit", "Guard", "Guide"],
+    H: ["Hypertext", "Host", "Hardware", "Hybrid", "Hash", "Header", "High", "Home", "Hub", "Handler"],
+    I: ["Internet", "Interface", "Information", "Infrastructure", "Input", "Internal", "Identity", "Image", "Integrity", "Instruction"],
+    J: ["Java", "Job", "Join", "Journal", "Junction", "Jump", "Json", "Just", "Kernel", "Key"], // J e K misturados
+    K: ["Key", "Kernel", "Keyboard", "Kilo", "Knowledge", "Keep", "Kit"],
+    L: ["Layer", "Local", "Link", "Logic", "Language", "Load", "Loop", "List", "Latency", "Log"],
+    M: ["Media", "Management", "Memory", "Mode", "Model", "Message", "Module", "Machine", "Mail", "Master"],
+    N: ["Network", "Name", "Node", "Native", "Number", "Null", "Next", "Neural", "Noise", "Notification"],
+    O: ["Open", "Object", "Output", "Operating", "Option", "Online", "Offset", "Optical", "Order", "Organization"],
+    P: ["Protocol", "Public", "Private", "Packet", "Port", "Program", "Process", "Platform", "Power", "Path"],
+    Q: ["Query", "Queue", "Quality", "Quick", "Quantum", "Quota", "Quad"],
+    R: ["Routing", "Remote", "Resource", "Request", "Root", "Radio", "Read", "Real", "Registry", "Recovery"],
+    S: ["System", "Secure", "Service", "Standard", "Server", "Software", "Security", "Shell", "Session", "Switch", "Simple"],
+    T: ["Transfer", "Transmission", "Technology", "Terminal", "Time", "Traffic", "Transport", "Token", "Type", "Thread"],
+    U: ["User", "Universal", "Unified", "Unit", "Upload", "Update", "Url", "Utility", "Unix"],
+    V: ["Virtual", "Video", "Value", "Vector", "Voice", "Variable", "View", "Volume", "Verification", "Version"],
+    W: ["Web", "Wireless", "Wide", "Windows", "Work", "Write", "Word", "Wait", "Wave"],
+    X: ["Extended", "Extensible", "Exchange", "Xerox", "Xml"],
+    Y: ["Yield", "Yaml", "Year"],
+    Z: ["Zone", "Zero", "Zip", "Zoom"]
+};
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Verifica se o data.js foi carregado antes
+    // Verifica se data.js carregou
     if (typeof fullData === 'undefined' || fullData.length < 4) {
         alert("Erro fatal: data.js não carregado.");
         return;
     }
+    
+    
     try {
-        buildWordDictionary(); 
-        // Prepara os dados limpando a definição para usar como resposta correta
         fullData.forEach(item => {
             item.cleanExpansion = getCleanExpansion(item.def); 
             item.fullDef = item.def;
@@ -23,10 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) { console.error(e); }
 });
 
-// Função chamada pelos botões do menu inicial (30, 60, 90)
 window.initQuiz = function(amount) {
     targetQuestions = amount;
-    
     const lobby = document.getElementById('quiz-lobby');
     const game = document.getElementById('game-ui');
     
@@ -37,54 +63,46 @@ window.initQuiz = function(amount) {
     }
 }
 
-// Utilitários
-function getCleanExpansion(def) { return def.split('.')[0].trim() + "."; }
-function toTitleCase(word) { return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(); }
 
-// Constrói um dicionário baseado nas palavras reais do data.js para gerar siglas falsas realistas
-function buildWordDictionary() {
-    fullData.forEach(item => {
-        const expansion = item.def.split('.')[0]; 
-        const words = expansion.split(/[\s\-\/]+/);
-        words.forEach(word => {
-            let cleanWord = word.replace(/[().,;:"']/g, '');
-            if (cleanWord.length > 2 && !BLOCKLIST.includes(cleanWord.toUpperCase())) {
-                const firstLetter = cleanWord.charAt(0).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-                if (!wordDictionary[firstLetter]) wordDictionary[firstLetter] = new Set(); 
-                wordDictionary[firstLetter].add(toTitleCase(cleanWord));
-            }
-        });
-    });
+function getCleanExpansion(def) { 
+    
+    return def.split('.')[0].trim() + "."; 
 }
 
-// Gera uma expansão falsa baseada nas letras da sigla (ex: T.C.P -> T... C... P...)
 function generateFakeAcronym(acronym) {
     let fakeExpansion = "";
+  
     const cleanAcronym = acronym.replace(/[^a-zA-Z0-9]/g, ''); 
+    
     for (let i = 0; i < cleanAcronym.length; i++) {
         const char = cleanAcronym[i].toUpperCase();
-        if (!isNaN(char)) { fakeExpansion += char + " "; continue; }
-        if (wordDictionary[char] && wordDictionary[char].size > 0) {
-            const wordsArray = Array.from(wordDictionary[char]);
-            const randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
+        
+      
+        if (!isNaN(char)) { 
+            fakeExpansion += char + " "; 
+            continue; 
+        }
+
+      
+        const vocabList = TECH_VOCABULARY[char];
+        
+        if (vocabList && vocabList.length > 0) {
+            const randomWord = vocabList[Math.floor(Math.random() * vocabList.length)];
             fakeExpansion += randomWord + " ";
         } else {
-            // Fallback se não tiver palavra com aquela letra
-            if (char === 'X') fakeExpansion += "Extended ";
-            else if (char === 'Z') fakeExpansion += "Zone ";
-            else fakeExpansion += "Secure "; 
+            
+            fakeExpansion += "System "; 
         }
     }
     return fakeExpansion.trim() + ".";
 }
 
-// Inicia a rodada
+
 function startQuiz() {
-    // Embaralha todas as questões e pega a quantidade escolhida
+    
     const shuffledData = [...fullData].sort(() => 0.5 - Math.random());
     quizQuestions = shuffledData.slice(0, targetQuestions);
     
-    // Gera as alternativas para cada questão selecionada
     quizQuestions.forEach(item => {
         item.options = generateAlternatives(item);
     });
@@ -93,16 +111,14 @@ function startQuiz() {
     renderQuestion(); 
 }
 
-// Renderiza a questão na tela
 function renderQuestion() {
     const container = document.getElementById('quiz-container');
     const item = quizQuestions[currentQuestionIndex];
     
-    // Atualiza barra de progresso
+ 
     const progressPercent = ((currentQuestionIndex) / targetQuestions) * 100;
     document.getElementById('progress-bar').style.width = `${progressPercent}%`;
 
-    // Renderiza HTML
     container.innerHTML = `
         <div class="quiz-card">
             <div class="question-header">
@@ -112,7 +128,7 @@ function renderQuestion() {
             </div>
             <div class="options-grid">
                 ${item.options.map((opt, i) => {
-                    // --- CHEAT REMOVIDO AQUI ---
+                    // SEM CHEAT: Botão limpo, apenas chama a função de clique
                     return `<button class="option-btn" onclick="handleOptionClick(${i}, this)">${opt}</button>`;
                 }).join('')}
             </div>
@@ -120,12 +136,14 @@ function renderQuestion() {
     `;
 }
 
-// Trata o clique na resposta
 function handleOptionClick(optionIndex, btnElement) {
-    btnElement.classList.add('clicked'); // Apenas efeito visual de clique
+    
+    btnElement.classList.add('clicked');
+    
+
     userAnswers[currentQuestionIndex] = optionIndex;
     
-    // Pequeno delay para passar para a próxima
+
     setTimeout(() => {
         if (currentQuestionIndex < targetQuestions - 1) {
             currentQuestionIndex++;
@@ -133,27 +151,29 @@ function handleOptionClick(optionIndex, btnElement) {
         } else {
             finishQuiz();
         }
-    }, 100); 
+    }, 150); 
 }
 
-// Gera 3 alternativas falsas e mistura com a verdadeira
 function generateAlternatives(correctItem) {
     const correctExpansion = correctItem.cleanExpansion;
+    
+  
     let fake1 = generateFakeAcronym(correctItem.term);
     let fake2 = generateFakeAcronym(correctItem.term);
     let fake3 = generateFakeAcronym(correctItem.term);
     
-    // Tenta evitar duplicatas (tentativa simples)
     let safety = 0;
-    while ((fake1 === fake2 || fake1 === fake3 || fake2 === fake3) && safety < 10) {
+    while ((fake1 === fake2 || fake1 === fake3 || fake2 === fake3 || fake1 === correctExpansion) && safety < 10) {
+        fake1 = generateFakeAcronym(correctItem.term);
         fake2 = generateFakeAcronym(correctItem.term);
         fake3 = generateFakeAcronym(correctItem.term);
         safety++;
     }
+    
+ 
     return [fake1, fake2, fake3, correctExpansion].sort(() => 0.5 - Math.random());
 }
 
-// Tela Final
 function finishQuiz() {
     document.getElementById('progress-bar').style.width = '100%';
     let score = 0;
@@ -162,7 +182,6 @@ function finishQuiz() {
 
     let hasErrors = false;
     
-    // Calcula pontuação e gera relatório
     quizQuestions.forEach((item, index) => {
         const userSelectedOptIndex = userAnswers[index];
         const userSelectedText = item.options[userSelectedOptIndex];
@@ -173,6 +192,8 @@ function finishQuiz() {
         } else {
             hasErrors = true;
             const userAnswerLabel = userSelectedText ? userSelectedText : "Não respondida";
+            
+            // Mostra o erro detalhado
             detailsContainer.innerHTML += `
                 <div class="result-item">
                     <strong>${item.term}</strong><br>
@@ -185,16 +206,15 @@ function finishQuiz() {
 
     if(!hasErrors) detailsContainer.innerHTML += "<p style='color:var(--accent); margin-top:10px;'>Nenhum erro! Perfeito.</p>";
 
-    // Atualiza UI de pontuação
+    // Atualiza pontuação na UI
     document.getElementById('score-number').innerText = score;
     document.getElementById('score-total-display').innerText = `/ ${targetQuestions}`;
     
     const percentage = (score / targetQuestions) * 100;
-    
-    // Lógica do Certificado (apenas se for modo 90 e > 70%)
     const certArea = document.getElementById('certificate-area');
     const feedbackMsg = document.getElementById('feedback-msg');
 
+    // Lógica do Certificado (Apenas modo 90 e >= 70%)
     if (targetQuestions === 90 && percentage >= 70) {
         certArea.classList.remove('hidden');
         feedbackMsg.innerHTML = "Parabéns!<br>Você atingiu o índice para certificação.";
@@ -211,7 +231,7 @@ function finishQuiz() {
     document.getElementById('result-modal').classList.remove('hidden');
 }
 
-// Gera o certificado codificado em Base64 para a URL
+// --- GERAÇÃO DE CERTIFICADO ---
 window.generateCertificate = function() {
     const nameInput = document.getElementById('student-name').value;
     
@@ -220,18 +240,15 @@ window.generateCertificate = function() {
         return;
     }
 
-    // Cria o payload
     const payload = {
         n: nameInput.trim().toUpperCase(), 
         d: new Date().toLocaleDateString('pt-BR'), 
         s: "ELITE" 
     };
 
-    // Codifica para Base64 (simples ofuscação para a URL)
     const jsonString = JSON.stringify(payload);
     const smartID = btoa(encodeURIComponent(jsonString));
 
-    // Salva localmente para a página de certificado usar se necessário
     localStorage.setItem('cert_name', payload.n);
     localStorage.setItem('cert_date', payload.d);
     localStorage.setItem('cert_id', "CF-" + smartID); 
