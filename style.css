@@ -420,7 +420,6 @@ footer {
 .site-info-banner {
     background-color: var(--card-bg);
     border: 1px solid var(--border);
-    border-left: 5px solid var(--accent); /* Borda de destaque verde */
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
@@ -458,4 +457,5 @@ footer {
 
 .site-features span:nth-child(odd) {
     color: var(--accent); /* Destaca os itens em verde */
+
 }
